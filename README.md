@@ -30,6 +30,7 @@ A full-stack to-do list application built with **FastAPI**, **SQLAlchemy** and *
 ```
 TodoApp_FastApi/
 ├── .env.example           # Template for environment variables
+├── render.yaml            # Render deployment Blueprint
 ├── requirements.txt
 └── TodoApp/
     ├── main.py            # FastAPI app, static files, router registration
@@ -171,6 +172,18 @@ Use the returned `access_token` in the `Authorization: Bearer <token>` header fo
   "complete": false
 }
 ```
+
+## Deployment (Render)
+
+The repository includes a `render.yaml` [Blueprint](https://render.com/docs/blueprint-spec) that creates:
+
+- a **web service** running `uvicorn TodoApp.main:app --host 0.0.0.0 --port $PORT`
+- a **PostgreSQL** database, whose connection string is passed in as `SQLALCHEMY_DATABASE_URI`
+- a randomly generated `SECRET_KEY`
+
+To deploy: in the Render dashboard choose **New → Blueprint**, connect this repository and apply. Tables are created automatically on first startup.
+
+If you create the web service manually instead, leave **Root Directory** empty, use the start command above and set the environment variables from the [Configuration](#configuration) section.
 
 ## Running Tests
 

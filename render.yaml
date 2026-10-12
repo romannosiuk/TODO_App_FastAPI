@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: todo-app-fastapi
+    runtime: python
+    plan: free
+    # Run from the repository root so TodoApp is imported as a package
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn TodoApp.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.14.6
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALGORITHM
+        value: HS256
+      - key: SQLALCHEMY_DATABASE_URI
+        fromDatabase:
+          name: todo-db
+          property: connectionString
+
+databases:
+  - name: todo-db
+    plan: free
+    databaseName: todo_application_db
+    user: todo_user
