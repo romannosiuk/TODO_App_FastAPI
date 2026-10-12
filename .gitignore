@@ -1,0 +1,15 @@
+# Environment
+.env
+fastapienv/
+
+# Python
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Local databases
+*.db
+
+# IDE / OS
+.idea/
+.DS_Store
