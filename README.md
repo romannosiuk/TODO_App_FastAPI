@@ -178,10 +178,11 @@ Use the returned `access_token` in the `Authorization: Bearer <token>` header fo
 The repository includes a `render.yaml` [Blueprint](https://render.com/docs/blueprint-spec) that creates:
 
 - a **web service** running `uvicorn TodoApp.main:app --host 0.0.0.0 --port $PORT`
-- a **PostgreSQL** database, whose connection string is passed in as `SQLALCHEMY_DATABASE_URI`
 - a randomly generated `SECRET_KEY`
 
-To deploy: in the Render dashboard choose **New → Blueprint**, connect this repository and apply. Tables are created automatically on first startup.
+The database is not hosted on Render — the app connects to an external PostgreSQL instance (e.g. Neon, Supabase) via `SQLALCHEMY_DATABASE_URI`.
+
+To deploy: in the Render dashboard choose **New → Blueprint**, connect this repository and enter the external database connection string when prompted for `SQLALCHEMY_DATABASE_URI`. If the provider requires SSL, keep `?sslmode=require` at the end of the URL. Tables are created automatically on first startup.
 
 If you create the web service manually instead, leave **Root Directory** empty, use the start command above and set the environment variables from the [Configuration](#configuration) section.
 

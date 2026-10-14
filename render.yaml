@@ -14,13 +14,6 @@ services:
         generateValue: true
       - key: ALGORITHM
         value: HS256
+      # External PostgreSQL; Render asks for the value when the Blueprint is applied
       - key: SQLALCHEMY_DATABASE_URI
-        fromDatabase:
-          name: todo-db
-          property: connectionString
-
-databases:
-  - name: todo-db
-    plan: free
-    databaseName: todo_application_db
-    user: todo_user
+        sync: false
